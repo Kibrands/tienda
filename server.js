@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const apiRoutes = require('./routes');
 
 mongoose.connect("mongodb://localhost:27017/tienda", { useNewUrlParser: true })
 .then( db => console.log("Conexión a BD correcta") )
@@ -7,6 +8,10 @@ mongoose.connect("mongodb://localhost:27017/tienda", { useNewUrlParser: true })
 
 
 const app = express();
+
+app.use(express.json());    // IMPORTANTE: Poner esto antes de las rutas
+app.use('/api', apiRoutes);
+
 
 app.get("/",(req, res)=> { 
     res.send("<h1>Hola Mundo</h1>") 
