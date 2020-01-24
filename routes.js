@@ -1,6 +1,6 @@
 const { Cliente, Articulo } = require("./models.js");
 const express = require("express");
-
+const path = require("path");
 const router = express.Router();
 
 // --------------- API REST CRUD
@@ -45,15 +45,15 @@ router.put("/clientes/:id", (req, res) => {
 
 // Create
 router.post("/clientes", (req, res) => {
-    const cliente = new Cliente({ nombre: req.body.nombre, apellidos: req.body.apellidos });
-    cliente.save((err, data) => {
-        if (err) res.json({ error: err });
-        else res.json(data);
-    });
+  const cliente = new Cliente({ nombre: req.body.nombre, apellidos: req.body.apellidos });
+  cliente.save((err, data) => {
+    if (err) res.json({ error: err });
+    else res.json(data);
+  });
 });
 
 // ERROR
 router.get('*', (req, res) => {
-    res.status(404).sendFile(path.join(__dirname, 'error.html'));
+  res.status(404).sendFile(path.join(__dirname, 'error.html'));
 });
 module.exports = router;
